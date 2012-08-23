@@ -1,3 +1,17 @@
+# Update from 8/23
+
+As of today, this plugin has been completely refactored in a number of ways that will undoubtedly break your existing code.
+
+Unless you are comfortable digging in to the plugin code to figure out how it works now, I'd recommend holding off updating until I
+release updated documentation.
+
+Some of the major changes include:
+* MenuGathererComponent has become MenuBuilderComponent (since you're building menus within the component)
+* MenuBuilderHelper has become MenuRendererHelper (since all it's really doing is rendering pre-built menus)
+* MenuBuilder->build('name') has become MenuRenderer->render('name')
+* Both files are now backed by a new library, 'MenuLib' defining some simple and easily extendible classes
+* MenuRenderer does not output its own HTML, but instead relies on a defined set of MenuRenderer class instances. This means it can easily be extended to, for example, output a mega-menu.
+
 # MenuBuilder Helper
 
 A dynamic menu building helper for CakePHP
