@@ -1,5 +1,5 @@
 <?php
-App::uses('MenuBuilderHelper', 'MenuBuilder.View/Helper');
+App::uses('MenuRendererHelper', 'MenuBuilder.View/Helper');
 App::uses('Controller', 'Controller');
 App::uses('View', 'View');
 
@@ -47,7 +47,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
         $this->Conroller->set(compact('admin'));
         $this->View = new View($this->Conroller);
         $this->View->request = new CakeRequest;
-        $this->MenuBuilder = new MenuBuilderHelper($this->View);
+        $this->MenuBuilder = new MenuRendererHelper($this->View);
     }
 
 /**
@@ -73,7 +73,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
     }
 
 /**
@@ -93,14 +93,14 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item')), array('a' => array('href' => '#')),'Item 1', '</a', '</li',
                 '<li', array('a' => array('href' => '#')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With One One Level Sub Menu
@@ -113,7 +113,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -126,7 +126,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '<li', array('a' => array('href' => '#')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With Two One Level Sub Menu
@@ -139,7 +139,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -158,7 +158,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         // With Multi Level Sub Menu
         $menu[0]['children'][1]['children'] = array(
@@ -170,7 +170,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -195,7 +195,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }
 
@@ -218,14 +218,14 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item')), array('a' => array('href' => '/item-1', 'title' => 'Item 1')),'Item 1', '</a', '</li',
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With One One Level Sub Menu
@@ -240,7 +240,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -253,7 +253,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With Two One Level Sub Menu
@@ -268,7 +268,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -287,7 +287,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         // With Multi Level Sub Menu
         $menu[0]['children'][1]['children'] = array(
@@ -301,7 +301,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -326,7 +326,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }
 
@@ -350,14 +350,14 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item active')), array('a' => array('href' => '/item-1', 'title' => 'Item 1')),'Item 1', '</a', '</li',
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With One One Level Sub Menu
@@ -373,7 +373,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item active has-children')), 
@@ -386,7 +386,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With Two One Level Sub Menu
@@ -402,7 +402,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -421,7 +421,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         // With Multi Level Sub Menu
         $this->MenuBuilder->here = '/item-1.2.2';
@@ -436,7 +436,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item active has-children')), 
@@ -461,7 +461,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }
 
@@ -485,14 +485,14 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('id' => 'item-1', 'class' => 'first-item')), array('a' => array('href' => '/item-1', 'title' => 'Item 1')),'Item 1', '</a', '</li',
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With One One Level Sub Menu
@@ -510,7 +510,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -523,7 +523,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 array('li' => array('id' => 'item-2')), array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         // With Two One Level Sub Menu
@@ -539,7 +539,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -558,7 +558,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         // With Multi Level Sub Menu
         $menu[0]['children'][1]['children'] = array(
@@ -573,7 +573,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -598,7 +598,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }
 
@@ -657,7 +657,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item active has-children one two')), 
@@ -682,7 +682,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }
     
@@ -734,7 +734,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
         
         $result = $this->MenuBuilder->build('second-menu', array(), $menu);
@@ -750,7 +750,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '<li', array('a' => array('href' => '/item-2', 'title' => 'Item 2')),'Item 2', '</a', '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
     }
     
 /**
@@ -775,7 +775,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                     array(
                         'title' => 'Item 1.2',
                         'url' => '/item-1.2',
-                        'partialMatch' => true,
+                        'partialMatch' => TRUE,
                         'children' => array(
                             array(
                                 'title' => 'Item 1.2.1',
@@ -796,7 +796,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                     array(
                         'title' => 'Item 2.1',
                         'url' => '/item-2.1',
-                        'partialMatch' => true,
+                        'partialMatch' => TRUE,
                     ),
                     array(
                         'title' => 'Item 2.2',
@@ -806,7 +806,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item active has-children')), 
@@ -831,7 +831,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }    
     
@@ -889,7 +889,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
             ),
         );
         
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -910,10 +910,10 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
-        $this->MenuBuilder = new MenuBuilderHelper($this->View, array('authVar' => 'admin'));
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $this->MenuBuilder = new MenuRendererHelper($this->View, array('authVar' => 'admin'));
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item has-children')), 
@@ -936,10 +936,10 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
-        $this->MenuBuilder = new MenuBuilderHelper($this->View, array('authVar' => 'guest'));
-        $result = $this->MenuBuilder->build(null, array(), $menu);
+        $this->MenuBuilder = new MenuRendererHelper($this->View, array('authVar' => 'guest'));
+        $result = $this->MenuBuilder->build(NULL, array(), $menu);
         $expected = array(
             '<ul',
                 array('li' => array('class' => 'first-item')), 
@@ -953,7 +953,7 @@ class MenuBuilderHelperTest extends CakeTestCase {
                 '</li',
             '</ul'
         );
-        $this->assertTags($result, $expected, true);
+        $this->assertTags($result, $expected, TRUE);
         
     }
     

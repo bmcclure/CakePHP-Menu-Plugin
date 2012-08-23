@@ -1,8 +1,8 @@
 <?php
 /* MenuGatherer Test cases generated on: 2011-11-28 01:44:52 : 1322444692*/
-App::uses('MenuGathererComponent', 'MenuBuilder.Controller/Component');
+App::uses('MenuBuilderComponent', 'MenuBuilder.Controller/Component');
 
-class TestMenuGathererComponent extends MenuGathererComponent {
+class TestMenuBuilderComponent extends MenuBuilderComponent {
 	var $cacheKey = 'test_menu_storage';
 
 /**
@@ -10,7 +10,7 @@ class TestMenuGathererComponent extends MenuGathererComponent {
  *
  * @var bool false
  */
-	public $testStop = false;
+	public $testStop = FALSE;
 	
 /**
  * Fake getControllers to reflect things in TestCase
@@ -43,7 +43,7 @@ class Controller2Controller extends Controller {
 }
 
 /**
- * MenuGathererComponent Test Case
+ * MenuBuilderComponent Test Case
  *
  */
 class MenuGathererComponentTestCase extends CakeTestCase {
@@ -56,10 +56,10 @@ class MenuGathererComponentTestCase extends CakeTestCase {
 		parent::setUp();
 		$this->_admin = Configure::read('Routing.prefixes.0');
 		Configure::write('Routing.prefixes.0', 'admin');
-		$_SESSION = null;
+		$_SESSION = NULL;
 		$this->Controller = new TestMenuGathererController();
 		$this->Collection = new ComponentCollection();
-		$this->MenuGatherer = new MenuGathererComponent($this->Collection);
+		$this->MenuGatherer = new MenuBuilderComponent($this->Collection);
 		$this->MenuGatherer->startup($this->Controller);
 	}
 
