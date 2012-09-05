@@ -1,7 +1,9 @@
 <?php
 App::uses('AppHelper', 'View/Helper');
-App::uses('Menu', 'Menu.Lib/MenuLib');
-App::uses('MenuItem', 'Menu.Lib/MenuLib');
+App::uses('MenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
+App::uses('MenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
+App::uses('BaseMenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
+App::uses('BaseMenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
 App::uses('DefaultMenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
 App::uses('DefaultMenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
 
