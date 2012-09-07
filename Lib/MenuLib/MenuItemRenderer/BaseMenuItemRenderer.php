@@ -23,6 +23,6 @@ abstract class BaseMenuItemRenderer implements MenuItemRenderer {
      * @param MenuRenderer $childRenderer
      * @return mixed
      */
-    abstract function render(MenuItem $item, MenuRenderer $childRenderer = NULL);
+    //abstract function render(MenuItem $item, MenuRenderer $childRenderer = NULL);
 }
 ?>

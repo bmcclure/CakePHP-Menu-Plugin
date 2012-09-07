@@ -31,7 +31,7 @@ abstract class BaseMenuRenderer implements MenuRenderer {
      * @param Menu $menu
      * @return mixed
      */
-    abstract function render(Menu $menu);
+    //abstract function render(Menu $menu);
 
 }
 ?>
