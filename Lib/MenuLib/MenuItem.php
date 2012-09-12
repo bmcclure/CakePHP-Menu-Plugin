@@ -43,7 +43,7 @@ class MenuItem {
         $this->url = $url;
 
         if (isset($options['children'])) {
-            foreach ($options['children'] as $child) {
+            foreach ((array) $options['children'] as $child) {
                 $this->addChild($child);
             }
             unset($options['children']);
@@ -64,7 +64,7 @@ class MenuItem {
      * @param $index
      */
     public function addChildItem(MenuItem $item, $index = -1) {
-        if (!isset($children)) {
+        if (!isset($this->children)) {
             $this->children = new Menu($this->title);
         }
 
