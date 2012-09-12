@@ -17,7 +17,7 @@ class MenuRendererHelper extends AppHelper {
  * @var array
  * @access public
  */
-    var $helpers = array('Html', 'Kint.Kint');
+    var $helpers = array('Html');
 
 /**
  * Array of global menu
