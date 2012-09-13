@@ -5,22 +5,22 @@ App::uses('MenuBuilderComponent', 'MenuBuilder.Controller/Component');
 class TestMenuBuilderComponent extends MenuBuilderComponent {
 	var $cacheKey = 'test_menu_storage';
 
-/**
- * testStop property
- *
- * @var bool false
- */
+	/**
+	 * testStop property
+	 *
+	 * @var bool false
+	 */
 	public $testStop = FALSE;
-	
-/**
- * Fake getControllers to reflect things in TestCase
- *
- * @return void
- **/
+
+	/**
+	 * Fake getControllers to reflect things in TestCase
+	 *
+	 * @return void
+	 **/
 	function getControllers() {
 		return array('Controller1', 'Controller2');
 	}
-	
+
 }
 
 
@@ -33,13 +33,22 @@ class AuthUser extends CakeTestModel {
 }
 
 class Controller1Controller extends Controller {
-	function action1() {}
-	function action2() {}
+	function action1() {
+	}
+
+	function action2() {
+	}
 }
+
 class Controller2Controller extends Controller {
-	function action1() {}
-	function action2() {}
-	function admin_action(){}
+	function action1() {
+	}
+
+	function action2() {
+	}
+
+	function admin_action() {
+	}
 }
 
 /**
@@ -47,11 +56,11 @@ class Controller2Controller extends Controller {
  *
  */
 class MenuGathererComponentTestCase extends CakeTestCase {
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->_admin = Configure::read('Routing.prefixes.0');
@@ -63,22 +72,22 @@ class MenuGathererComponentTestCase extends CakeTestCase {
 		$this->MenuGatherer->startup($this->Controller);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		unset($this->MenuGatherer);
 
 		parent::tearDown();
 	}
 
-/**
- * testControllerMenu method
- *
- * @return void
- */
+	/**
+	 * testControllerMenu method
+	 *
+	 * @return void
+	 */
 	public function testControllerMenu() {
 		//$this->MenuGatherer->controllerMenu('main');
 		//$expected = '';
@@ -86,11 +95,11 @@ class MenuGathererComponentTestCase extends CakeTestCase {
 		//$this->assertEqual($result, $expected);
 	}
 
-/**
- * testGet method
- *
- * @return void
- */
+	/**
+	 * testGet method
+	 *
+	 * @return void
+	 */
 	public function testGet() {
 		$result = $this->MenuGatherer->get();
 		$expected = array();
@@ -98,71 +107,80 @@ class MenuGathererComponentTestCase extends CakeTestCase {
 		$this->assertEqual($result, $expected);
 	}
 
-/**
- * testItem method
- *
- * @return void
- */
+	/**
+	 * testItem method
+	 *
+	 * @return void
+	 */
 	public function testItem() {
-		$this->MenuGatherer->item('main', array('item1' => array('controller' => 'pages', 'action' => 'display', 'item1')));
-		$result = $this->MenuGatherer->get('main');	
+		$this->MenuGatherer->item('main', array(
+			'item1' => array(
+				'controller' => 'pages',
+				'action' => 'display',
+				'item1'
+			)
+		));
+		$result = $this->MenuGatherer->get('main');
 		$expected = array('main' => array('item1' => array('controller' => 'pages', 'action' => 'display', 'item1')));
 		"<code><pre>" . h($result) . '</pre></code>';
 		$this->assertEqual($result, $expected);
 	}
 
-/**
- * testMenu method
- *
- * @return void
- */
+	/**
+	 * testMenu method
+	 *
+	 * @return void
+	 */
 	public function testMenu() {
 		$this->MenuGatherer->menu('smasher', array(
 			array(
-			    'separator' => '<dt>smasher</dt>',
+				'separator' => '<dt>smasher</dt>',
 			),
 			array(
-			    'title' => 'Home',
-			    'url' => array('controller' => 'pages', 'action' => 'home'),
+				'title' => 'Home',
+				'url' => array('controller' => 'pages', 'action' => 'home'),
 			),
 			array(
-			    'title' => 'About Me - I am a Smashing Menu system',
-			    'url' => '/pages/about-menu-builder',
+				'title' => 'About Me - I am a Smashing Menu system',
+				'url' => '/pages/about-menu-builder',
 			),
 			array(
-			    'title' => 'Contact the Menu Builder',
-			    'url' => '/contact',
+				'title' => 'Contact the Menu Builder',
+				'url' => '/contact',
 			),
 		));
 		$expected = $this->MenuGatherer->get('smasher');
 		$result = array(
 			array(
-			    'separator' => '<dt>smasher</dt>',
+				'separator' => '<dt>smasher</dt>',
 			),
 			array(
-			    'title' => 'Home',
-			    'url' => array('controller' => 'pages', 'action' => 'home'),
+				'title' => 'Home',
+				'url' => array('controller' => 'pages', 'action' => 'home'),
 			),
 			array(
-			    'title' => 'About Me - I am a Smashing Menu system',
-			    'url' => '/pages/about-menu-builder',
+				'title' => 'About Me - I am a Smashing Menu system',
+				'url' => '/pages/about-menu-builder',
 			),
 			array(
-			    'title' => 'Contact the Menu Builder',
-			    'url' => '/contact',
+				'title' => 'Contact the Menu Builder',
+				'url' => '/contact',
 			),
 		);
 		"<code><pre>" . h($result) . '</pre></code>';
 		$this->assertEqual($result, $expected);
 	}
 
-/**
- * testSet method
- *
- * @return void
- */
+	/**
+	 * testSet method
+	 *
+	 * @return void
+	 */
 	public function testSet() {
-		$this->MenuGatherer->set(array('item1' => array('controller' => 'pages', 'action' => 'display', 'item1'), 'item1' => array('controller' => 'pages', 'action' => 'display', 'item1')));
+		$this->MenuGatherer->set(array(
+			'item1' => array('controller' => 'pages', 'action' => 'display', 'item1'),
+			'item1' => array('controller' => 'pages', 'action' => 'display', 'item1')
+		));
 		$expected = $this->MenuGatherer->get();
 		$result = array('item1' => array('controller' => 'pages', 'action' => 'display', 'item1'));
 		"<code><pre>" . h($result) . '</pre></code>';

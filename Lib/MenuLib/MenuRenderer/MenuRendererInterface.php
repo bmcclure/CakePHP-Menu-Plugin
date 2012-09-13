@@ -5,11 +5,12 @@ namespace MenuLib\MenuRenderer;
  *
  */
 interface MenuRendererInterface {
-    /**
-     * @abstract
-     * @param \MenuLib\Menu $menu
-     * @return mixed
-     */
-    function render(\MenuLib\Menu $menu);
+	/**
+	 * @abstract
+	 * @param \MenuLib\Menu $menu
+	 * @return mixed
+	 */
+	function render(\MenuLib\Menu $menu);
 }
+
 ?>

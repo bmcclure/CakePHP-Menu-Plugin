@@ -7,76 +7,78 @@ use MenuLib\MenuRenderer;
  *
  */
 class DefaultMenuItemRenderer extends BaseMenuItemRenderer {
-    /**
-     * @var \HtmlHelper
-     */
-    protected $helper;
+	/**
+	 * @var \HtmlHelper
+	 */
+	protected $helper;
 
-    /**
-     * @var array
-     */
-    public $settings = array(
-        'wrap' => '<li%s>%s</li>',
-        'childrenWrap' => '%s',
-        'childrenClass' => 'has-children',
-        'activeClass' => 'active',
-        'noLinkFormat' => '<a href="#">%s</a>',
-        'class' => '',
-        'id' => '',
-    );
+	/**
+	 * @var array
+	 */
+	public $settings = array(
+		'wrap' => '<li%s>%s</li>',
+		'childrenWrap' => '%s',
+		'childrenClass' => 'has-children',
+		'activeClass' => 'active',
+		'noLinkFormat' => '<a href="#">%s</a>',
+		'class' => '',
+		'id' => '',
+	);
 
-    /**
-     * @param \Helper $helper
-     * @param MenuItemRendererInterface $itemRenderer
-     * @param array $settings
-     */
-    public function __construct(\Helper $helper, $settings = array()) {
-        $this->helper = $helper;
+	/**
+	 * @param \Helper $helper
+	 * @param MenuItemRendererInterface $itemRenderer
+	 * @param array $settings
+	 */
+	public function __construct(\Helper $helper, $settings = array()) {
+		$this->helper = $helper;
 
-        $settings = array_merge($this->settings, $settings);
+		$settings = array_merge($this->settings, $settings);
 
-        parent::__construct($settings);
-    }
-
-
-    /**
-     * @param \MenuLib\MenuItem $item
-     * @param MenuRenderer\MenuRendererInterface $childRenderer
-     * @return string
-     */
-    function render(\MenuLib\MenuItem $item, MenuRenderer\MenuRendererInterface $childRenderer = NULL) {
-        $url = $item->getUrl();
-
-        if (empty($url)) {
-            $output = sprintf($this->settings['noLinkFormat'], $item->getTitle());
-        } else {
-            $output = $this->helper->link($item->getTitle(), $item->getUrl());
-        }
+		parent::__construct($settings);
+	}
 
 
-        if ($item->hasChildren()) {
-            $output .= $childRenderer->render($item->getChildren());
-        }
+	/**
+	 * @param \MenuLib\MenuItem $item
+	 * @param MenuRenderer\MenuRendererInterface $childRenderer
+	 * @return string
+	 */
+	function render(\MenuLib\MenuItem $item, MenuRenderer\MenuRendererInterface $childRenderer = NULL) {
+		$url = $item->getUrl();
 
-        $class = $this->settings['class'] ? $this->settings['class'] . ' ' : '';
-        if ($this->settings['childrenClass'] && $item->hasChildren()) {
-            $class .= $this->settings['childrenClass'];
-        }
+		if (empty($url)) {
+			$output = sprintf($this->settings['noLinkFormat'], $item->getTitle());
+		}
+		else {
+			$output = $this->helper->link($item->getTitle(), $item->getUrl());
+		}
 
-        if ($item->isActive()) {
-            if (!empty($class)) {
-                $class .= ' ';
-            }
-            $class .= $this->settings['activeClass'];
-        }
 
-        $class = $class ? ' class="'.$class.'"' : '';
-        $class .= $this->settings['id'] ? ' id="'.$this->settings['id'].'"' : '';
+		if ($item->hasChildren()) {
+			$output .= $childRenderer->render($item->getChildren());
+		}
 
-        $output = sprintf($this->settings['wrap'], $class, $output);
+		$class = $this->settings['class'] ? $this->settings['class'] . ' ' : '';
+		if ($this->settings['childrenClass'] && $item->hasChildren()) {
+			$class .= $this->settings['childrenClass'];
+		}
 
-        return $output;
-    }
+		if ($item->isActive()) {
+			if (!empty($class)) {
+				$class .= ' ';
+			}
+			$class .= $this->settings['activeClass'];
+		}
+
+		$class = $class ? ' class="' . $class . '"' : '';
+		$class .= $this->settings['id'] ? ' id="' . $this->settings['id'] . '"' : '';
+
+		$output = sprintf($this->settings['wrap'], $class, $output);
+
+		return $output;
+	}
 
 }
+
 ?>
