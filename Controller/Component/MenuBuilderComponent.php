@@ -1,7 +1,5 @@
 <?php
 App::uses('Component', 'Controller');
-App::uses('Menu', 'Menu.Lib/MenuLib');
-App::uses('MenuItem', 'Menu.Lib/MenuLib');
 
 /**
  *
@@ -70,11 +68,11 @@ class MenuBuilderComponent extends Component {
      * @param array $settings
      */
     public function setMenu($name, $items = array(), $settings = array()) {
-        if (is_a($name, 'Menu')) {
+        if (is_a($name, 'MenuLib\Menu')) {
             $this->_menus[$name->name] = $name;
         } else {
             $settings = array_merge($this->defaultMenuSettings, $settings);
-            $this->_menus[$name] = new Menu($name, $items, array_merge($this->defaultMenuSettings, $settings));
+            $this->_menus[$name] = new MenuLib\Menu($name, $items, array_merge($this->defaultMenuSettings, $settings));
         }
     }
 
@@ -119,15 +117,15 @@ class MenuBuilderComponent extends Component {
      * @param array $options
      */
     public function addItem($menu, $title, $url = array(), $options = array()) {
-        if (!is_a($menu, 'Menu')) {
+        if (!is_a($menu, 'MenuLib\Menu')) {
             $menu = $this->_menus[(string) $menu];
         }
 
         /**
-         * @var Menu $menu
+         * @var MenuLib\Menu $menu
          */
 
-        if (is_a($title, 'MenuItem')) {
+        if (is_a($title, 'MenuLib\MenuItem')) {
             $menu->addItem($title);
         } else {
             $options = array_merge($this->defaultMenuItemOptions, $options);
@@ -152,31 +150,27 @@ class MenuBuilderComponent extends Component {
         $menus = array();
 
         /**
-         * @var Menu $menu
+         * @var MenuLib\Menu $menu
          */
         foreach ($this->_menus as $name => $menu) {
             // Perhaps inject some logic here to decide which menus to process for this request
 
             /**
-             * @var MenuItem $item
+             * @var MenuLib\MenuItem $item
              */
             $this->setActiveItems($menu);
 
             $menus[$name] = $menu;
         }
 
-        //debug($menus);
-        //Kint::trace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
-        //Kint::dump($menus);
-
         return $menus;
     }
 
     /**
-     * @param Menu $menu
+     * @param MenuLib\Menu $menu
      * @return bool
      */
-    public function setActiveItems(Menu $menu) {
+    public function setActiveItems(MenuLib\Menu $menu) {
         $hasActiveItems = FALSE;
 
         foreach ($menu->getItems() as $item) {
@@ -189,10 +183,10 @@ class MenuBuilderComponent extends Component {
     }
 
     /**
-     * @param MenuItem $item
+     * @param MenuLib\MenuItem $item
      * @return bool
      */
-    public function setActive(MenuItem $item) {
+    public function setActive(MenuLib\MenuItem $item) {
         $active = FALSE;
 
         if ($item->hasChildren()) {
@@ -208,10 +202,10 @@ class MenuBuilderComponent extends Component {
     }
 
     /**
-     * @param MenuItem $item
+     * @param MenuLib\MenuItem $item
      * @return bool
      */
-    public function itemIsActive(MenuItem $item) {
+    public function itemIsActive(MenuLib\MenuItem $item) {
         if($item->options['partialMatch']) {
             $check = (strpos(Router::normalize($this->_controller->request->url), Router::normalize($item->getUrl()))===0);
         } else {
@@ -244,7 +238,7 @@ class MenuBuilderComponent extends Component {
 
         $controllerName = substr($controller, 0, -10);
         $underscoredName = Inflector::underscore($controllerName);
-        $parent = new MenuItem($controllerName, array(
+        $parent = new MenuLib\MenuItem($controllerName, array(
             'controller' => $underscoredName,
             'action' => 'index',
         ), $this->defaultMenuItemOptions);
@@ -257,12 +251,12 @@ class MenuBuilderComponent extends Component {
         }
 
 
-        if (!is_a($menu, 'Menu')) {
+        if (!is_a($menu, 'MenuLib\Menu')) {
             $menu = $this->_menus[(string) $menu];
         }
 
         /**
-         * @var Menu $menu
+         * @var MenuLib\Menu $menu
          */
         $menu->addItem($parent, $startingIndex);
 
@@ -271,7 +265,6 @@ class MenuBuilderComponent extends Component {
 
     /**
      * @param $controllerName
-     * @param $plugins
      * @return array
      */
     protected function _getControllerMethods($controllerName) {

@@ -1,5 +1,9 @@
 <?php
-App::uses('Menu', 'Menu.Lib/MenuLib');
+namespace MenuLib;
+
+use MenuLib\MenuItemRenderer;
+
+// uses Menu
 /**
  *
  */
@@ -62,6 +66,7 @@ class MenuItem {
     /**
      * @param MenuItem $item
      * @param $index
+     * @return bool
      */
     public function addChildItem(MenuItem $item, $index = -1) {
         if (!isset($this->children)) {
@@ -94,9 +99,10 @@ class MenuItem {
      * @param array $url
      * @param array $options
      * @param $index
+     * @return bool
      */
     public function addChild($title, $url = array(), $options = array(), $index = -1) {
-        if (is_a($title, 'MenuItem')) {
+        if (is_a($title, 'MenuLib\MenuItem')) {
             return $this->addChildItem($title);
         }
 
@@ -109,7 +115,7 @@ class MenuItem {
             unset($options['url']);
         }
 
-        $this->addChildItem(new MenuItem($title, $url, $options), $index);
+        return $this->addChildItem(new MenuItem($title, $url, $options), $index);
     }
 
     /**
@@ -141,9 +147,9 @@ class MenuItem {
     }
 
     /**
-     * @param MenuItemRenderer $renderer
+     * @param MenuItemRenderer\MenuItemRendererInterface $renderer
      */
-    public function setRenderer($renderer) {
+    public function setRenderer(MenuItemRenderer\MenuItemRendererInterface $renderer) {
         $this->renderer = $renderer;
     }
 

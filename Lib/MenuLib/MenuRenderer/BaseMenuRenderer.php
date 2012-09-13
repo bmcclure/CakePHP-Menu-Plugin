@@ -1,13 +1,14 @@
 <?php
-App::uses('MenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
+namespace MenuLib\MenuRenderer;
 
+use MenuLib\MenuItemRenderer;
 
 /**
  *
  */
-abstract class BaseMenuRenderer implements MenuRenderer {
+abstract class BaseMenuRenderer implements MenuRendererInterface {
     /**
-     * @var MenuItemRenderer
+     * @var MenuItemRenderer\MenuItemRendererInterface
      */
     protected $itemRenderer;
 
@@ -17,21 +18,13 @@ abstract class BaseMenuRenderer implements MenuRenderer {
     public $settings = array();
 
     /**
-     * @param MenuItemRenderer $itemRenderer
+     * @param MenuItemRenderer\MenuItemRendererInterface $itemRenderer
      * @param array $settings
      */
-    protected function __construct(MenuItemRenderer $itemRenderer, $settings = array()) {
+    protected function __construct(MenuItemRenderer\MenuItemRendererInterface $itemRenderer, $settings = array()) {
         $this->itemRenderer = $itemRenderer;
 
         $this->settings = array_merge($this->settings, $settings);
     }
-
-    /**
-     * @abstract
-     * @param Menu $menu
-     * @return mixed
-     */
-    //abstract function render(Menu $menu);
-
 }
 ?>

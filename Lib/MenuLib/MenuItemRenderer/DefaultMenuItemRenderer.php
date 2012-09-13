@@ -1,11 +1,14 @@
 <?php
-App::uses('BaseMenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
+namespace MenuLib\MenuItemRenderer;
+
+use MenuLib\MenuRenderer;
+
 /**
  *
  */
 class DefaultMenuItemRenderer extends BaseMenuItemRenderer {
     /**
-     * @var HtmlHelper
+     * @var \HtmlHelper
      */
     protected $helper;
 
@@ -23,11 +26,11 @@ class DefaultMenuItemRenderer extends BaseMenuItemRenderer {
     );
 
     /**
-     * @param Helper $helper
-     * @param MenuItemRenderer $itemRenderer
+     * @param \Helper $helper
+     * @param MenuItemRendererInterface $itemRenderer
      * @param array $settings
      */
-    public function __construct(Helper $helper, $settings = array()) {
+    public function __construct(\Helper $helper, $settings = array()) {
         $this->helper = $helper;
 
         $settings = array_merge($this->settings, $settings);
@@ -37,11 +40,11 @@ class DefaultMenuItemRenderer extends BaseMenuItemRenderer {
 
 
     /**
-     * @param MenuItem $item
-     * @param MenuRenderer $childRenderer
+     * @param \MenuLib\MenuItem $item
+     * @param MenuRenderer\MenuRendererInterface $childRenderer
      * @return string
      */
-    function render(MenuItem $item, MenuRenderer $childRenderer = NULL) {
+    function render(\MenuLib\MenuItem $item, MenuRenderer\MenuRendererInterface $childRenderer = NULL) {
         $url = $item->getUrl();
 
         if (empty($url)) {

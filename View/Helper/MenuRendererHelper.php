@@ -1,11 +1,8 @@
 <?php
 App::uses('AppHelper', 'View/Helper');
-App::uses('MenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
-App::uses('MenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
-App::uses('BaseMenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
-App::uses('BaseMenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
-App::uses('DefaultMenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
-App::uses('DefaultMenuItemRenderer', 'Menu.Lib/MenuLib/MenuItemRenderer');
+
+use MenuLib\MenuRenderer;
+use MenuLib\MenuItemRenderer;
 
 /**
  * Outputs menus built with the MenuBuilderComponent
@@ -95,10 +92,8 @@ class MenuRendererHelper extends AppHelper {
         list($plugin, $helperName) = pluginSplit($helper);
         $helperObject = $this->loadHelper($helperName);
 
-        $itemRenderer = new DefaultMenuItemRenderer($helperObject);
-
-        $this->_itemRenderers['default'] = $itemRenderer;
-        $this->_menuRenderers['default'] = new DefaultMenuRenderer($helperObject, $itemRenderer);
+        $this->_itemRenderers['default'] = new MenuItemRenderer\DefaultMenuItemRenderer($helperObject);
+        $this->_menuRenderers['default'] = new MenuRenderer\DefaultMenuRenderer($helperObject, $this->_itemRenderers['default']);
     }
 
     /**
@@ -123,7 +118,7 @@ class MenuRendererHelper extends AppHelper {
         //Kint::dump($this->_menus);
         //Kint::trace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
 
-        if (is_a($name, 'Menu')) {
+        if (is_a($name, 'MenuLib\Menu')) {
             $menu = $name;
         } elseif (isset($this->_menus[$name])) {
             $menu = $this->_menus[$name];
@@ -135,10 +130,10 @@ class MenuRendererHelper extends AppHelper {
     }
 
     /**
-     * @param Menu $menu
+     * @param MenuLib\Menu $menu
      */
-    public function renderMenu(Menu $menu) {
-        if (!is_a($menu, 'Menu')) {
+    public function renderMenu(MenuLib\Menu $menu) {
+        if (!is_a($menu, 'MenuLib\Menu')) {
             return '';
         }
 
@@ -149,11 +144,11 @@ class MenuRendererHelper extends AppHelper {
         }
 
         /**
-         * @var MenuRenderer $renderer
+         * @var MenuRenderer\MenuRendererInterface $renderer
          */
         $renderer = $this->_menuRenderers[$rendererName];
 
-        if (!is_a($renderer, 'MenuRenderer')) {
+        if (!is_a($renderer, 'MenuLib\MenuRenderer\MenuRendererInterface')) {
             return '';
         }
 

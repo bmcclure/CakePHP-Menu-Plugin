@@ -1,12 +1,14 @@
 <?php
-App::uses('BaseMenuRenderer', 'Menu.Lib/MenuLib/MenuRenderer');
+namespace MenuLib\MenuRenderer;
+
+use MenuLib\MenuItemRenderer;
 
 /**
  *
  */
 class DefaultMenuRenderer extends BaseMenuRenderer {
     /**
-     * @var Helper
+     * @var \Helper
      */
     protected $helper;
 
@@ -14,20 +16,20 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
         'wrap' => '<nav%s>%s</nav>',
         'menuWrap' => '<ul%s>%s</ul>',
         'class' => 'menu',
-        'id' => null,
-        'itemSeparator' => null,
+        'id' => NULL,
+        'itemSeparator' => NULL,
         'menuClass' => '',
         'menuId' => '',
-        'evenOdd' => false,
-        'firstLast' => false,
+        'evenOdd' => FALSE,
+        'firstLast' => FALSE,
     );
 
     /**
-     * @param Helper $helper
-     * @param MenuItemRenderer $itemRenderer
+     * @param \Helper $helper
+     * @param MenuItemRenderer\MenuItemRendererInterface $itemRenderer
      * @param array $settings
      */
-    public function __construct(Helper $helper, MenuItemRenderer $itemRenderer, $settings = array()) {
+    public function __construct(\Helper $helper, MenuItemRenderer\MenuItemRendererInterface $itemRenderer, $settings = array()) {
         $this->helper = $helper;
 
         $settings = array_merge($this->settings, $settings);
@@ -36,16 +38,18 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
     }
 
     /**
-     * @param Menu $menu
+     * @param \MenuLib\Menu $menu
+     * @param bool $child
+     * @return mixed|string
      */
-    function render(Menu $menu, $child = false) {
+    function render(\MenuLib\Menu $menu, $child = FALSE) {
         $output = "";
 
         $items = $menu->getItems();
         $count = count($items);
 
         /**
-         * @var MenuItem $item
+         * @var \MenuLib\MenuItem $item
          */
         $i = 1; // 1-based so that even/odd rows make more sense
         foreach ($items as $item) {
@@ -96,10 +100,10 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
 
         if (!$child) {
             $parentClass = $this->settings['class'] ? ' class="'.$this->settings['class'].'"' : '';
-            if ($this->settings['id'] != null) {
+            if ($this->settings['id'] != NULL) {
                 $parentClass .= $this->settings['id'] ? ' id="'.$this->settings['id'].'"' : '';
             } else {
-                $parentClass .= ' id="'.Inflector::slug($menu->name).'-menu"';
+                $parentClass .= ' id="'.\Inflector::slug($menu->name).'-menu"';
             }
 
             $output = sprintf($this->settings['wrap'], $parentClass, $output);

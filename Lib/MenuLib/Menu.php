@@ -1,5 +1,10 @@
 <?php
-App::uses('MenuItem', 'Menu.Lib/MenuLib');
+namespace MenuLib;
+
+use MenuLib\MenuRenderer;
+
+// Uses MenuItem
+
 /**
  *
  */
@@ -46,7 +51,7 @@ class Menu {
      */
     public function addItems($items) {
         foreach ((array) $items as $item) {
-            if (is_a($item, 'MenuItem')) {
+            if (is_a($item, 'MenuLib\MenuItem')) {
                 $this->addItem($item);
             } else {
                 $this->add($item);
@@ -77,7 +82,7 @@ class Menu {
      * @return bool
      */
     public function add($title, $url = array(), $options = array(), $index = -1) {
-        if (is_a($title, 'MenuItem')) {
+        if (is_a($title, 'MenuLib\MenuItem')) {
             return $this->addItem($title, $index);
         }
         if (is_array($title)) {
@@ -101,9 +106,9 @@ class Menu {
     }
 
     /**
-     * @param $renderer
+     * @param MenuRenderer\MenuRendererInterface $renderer
      */
-    public function setRenderer($renderer) {
+    public function setRenderer(MenuRenderer\MenuRendererInterface $renderer) {
         $this->renderer = $renderer;
     }
 
