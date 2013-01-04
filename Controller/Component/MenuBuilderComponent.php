@@ -59,6 +59,7 @@ class MenuBuilderComponent extends Component {
 	 * @param Controller $controller
 	 */
 	public function beforeRender(Controller $controller) {
+		//$controller->View->{$this->settings['menusVar']} = $this->getMenus();
 		$controller->set($this->settings['menusVar'], $this->getMenus());
 	}
 

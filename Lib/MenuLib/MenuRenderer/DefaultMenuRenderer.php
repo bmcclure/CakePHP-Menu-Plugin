@@ -19,6 +19,7 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
 		'id' => NULL,
 		'itemSeparator' => NULL,
 		'menuClass' => '',
+		'hideIfEmpty' => true,
 		'menuId' => '',
 		'evenOdd' => FALSE,
 		'firstLast' => FALSE,
@@ -42,11 +43,22 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
 	 * @param bool $child
 	 * @return mixed|string
 	 */
-	function render(\MenuLib\Menu $menu, $child = FALSE) {
+	function render(\MenuLib\Menu $menu, $options = array()) {
+		$defaults = array(
+			'child' => false,
+			'wrap' => '%s',
+		);
+
+		$options = array_merge($defaults, $options);
+
 		$output = "";
 
 		$items = $menu->getItems();
 		$count = count($items);
+
+		if ($count == 0 && $this->settings['hideIfEmpty']) {
+			return $output;
+		}
 
 		/**
 		 * @var \MenuLib\MenuItem $item
@@ -101,7 +113,7 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
 
 		$output = sprintf($this->settings['menuWrap'], $menuClass, $output);
 
-		if (!$child) {
+		if (!$options['child']) {
 			$parentClass = $this->settings['class'] ? ' class="' . $this->settings['class'] . '"' : '';
 			if ($this->settings['id'] != NULL) {
 				$parentClass .= $this->settings['id'] ? ' id="' . $this->settings['id'] . '"' : '';
@@ -112,6 +124,8 @@ class DefaultMenuRenderer extends BaseMenuRenderer {
 
 			$output = sprintf($this->settings['wrap'], $parentClass, $output);
 		}
+
+		$output = sprintf($options['wrap'], $output);
 
 		return $output;
 	}

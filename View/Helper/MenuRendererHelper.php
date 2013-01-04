@@ -116,7 +116,7 @@ class MenuRendererHelper extends AppHelper {
 	/**
 	 * @param $name
 	 */
-	public function render($name) {
+	public function render($name, $options = array()) {
 		//Kint::dump($this->_menus);
 		//Kint::trace(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
 
@@ -130,13 +130,13 @@ class MenuRendererHelper extends AppHelper {
 			return '';
 		}
 
-		return $this->renderMenu($menu);
+		return $this->renderMenu($menu, $options);
 	}
 
 	/**
 	 * @param MenuLib\Menu $menu
 	 */
-	public function renderMenu(MenuLib\Menu $menu) {
+	public function renderMenu(MenuLib\Menu $menu, $options = array()) {
 		if (!is_a($menu, 'MenuLib\Menu')) {
 			return '';
 		}
@@ -156,7 +156,7 @@ class MenuRendererHelper extends AppHelper {
 			return '';
 		}
 
-		return $renderer->render($menu);
+		return $renderer->render($menu, $options);
 	}
 }
 

@@ -20,7 +20,7 @@ class DefaultMenuItemRenderer extends BaseMenuItemRenderer {
 		'childrenWrap' => '%s',
 		'childrenClass' => 'has-children',
 		'activeClass' => 'active',
-		'noLinkFormat' => '<a href="#">%s</a>',
+		'noLinkFormat' => '%s',
 		'class' => '',
 		'id' => '',
 	);
@@ -49,14 +49,13 @@ class DefaultMenuItemRenderer extends BaseMenuItemRenderer {
 
 		if (empty($url)) {
 			$output = sprintf($this->settings['noLinkFormat'], $item->getTitle());
-		}
-		else {
-			$output = $this->helper->link($item->getTitle(), $item->getUrl());
+		} else {
+			$output = $this->helper->link($item->getTitle(), $item->getUrl(), $item->getLinkOptions());
 		}
 
 
 		if ($item->hasChildren()) {
-			$output .= $childRenderer->render($item->getChildren());
+			$output .= $childRenderer->render($item->getChildren(), array('child' => true));
 		}
 
 		$class = $this->settings['class'] ? $this->settings['class'] . ' ' : '';

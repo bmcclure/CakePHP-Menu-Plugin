@@ -35,6 +35,7 @@ class MenuItem {
 	 */
 	public $options = array(
 		'partialMatch' => FALSE,
+		'linkOptions' => array(),
 	);
 
 	/**
@@ -144,6 +145,14 @@ class MenuItem {
 	 */
 	public function getUrl() {
 		return $this->url;
+	}
+
+	public function getLinkOptions() {
+		return $this->options['linkOptions'];
+	}
+
+	public function setLinkOptions(array $linkOptions) {
+		$this->options['linkOptions'] = $linkOptions;
 	}
 
 	/**
