@@ -46,7 +46,7 @@ class MenuLibClassLoader {
 	/**
 	 * Gets the namespace seperator used by classes in the namespace of this class loader.
 	 *
-	 * @return void
+	 * @return string The current namespace separator
 	 */
 	public function getNamespaceSeparator() {
 		return $this->_namespaceSeparator;
